@@ -4,6 +4,10 @@ export class RegisterUserDto {
   @IsNumber()
   identityNumber: number;
   @IsString()
+  firstName: string;
+  @IsString()
+  lastName: string;
+  @IsString()
   username: string;
   @IsString()
   @IsStrongPassword()
