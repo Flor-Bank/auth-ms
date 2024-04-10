@@ -8,7 +8,7 @@ export class RegisterUserDto {
   @IsString()
   lastName: string;
   @IsString()
-  username: string;
+  email: string;
   @IsString()
   @IsStrongPassword()
   password: string;
