@@ -1,13 +1,10 @@
-import { IsString, IsStrongPassword } from 'class-validator';
+import { /* IsNumber */ IsString, IsStrongPassword } from 'class-validator';
 
 export class LoginUserDto {
-  /* 
-  * not sure to implement this
-  ? Investigate!
-  @IsNumber()
+  /* @IsNumber()
   identityNumber: number; */
   @IsString()
-  username: string;
+  email: string;
   @IsString()
   @IsStrongPassword()
   password: string;
