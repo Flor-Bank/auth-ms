@@ -32,7 +32,7 @@ export class AuthService extends PrismaClient implements OnModuleInit {
       if (user) {
         throw new RpcException({
           code: 400,
-          message: 'User already registered',
+          message: `User ${username} already registered`,
         });
       }
       //create new user

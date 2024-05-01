@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEmail,
   IsString,
   Matches,
@@ -26,4 +27,6 @@ export class RegisterUserDto {
       'The password must have a Uppercase, lowercase letter and a number',
   })
   password: string;
+  @IsBoolean()
+  isActive: boolean = true;
 }
