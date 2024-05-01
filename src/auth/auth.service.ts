@@ -21,13 +21,12 @@ export class AuthService extends PrismaClient implements OnModuleInit {
     return this.jwtService.sign(payload);
   }
   async registerUser(registerUserDto: RegisterUserDto) {
-    const { identityNumber, firstName, lastName, email, password } =
-      registerUserDto;
+    const { username, firstName, lastName, email, password } = registerUserDto;
     try {
       //verify if user is already registered
       const user = await this.user.findUnique({
         where: {
-          identityNumber,
+          username,
         },
       });
       if (user) {
@@ -39,7 +38,7 @@ export class AuthService extends PrismaClient implements OnModuleInit {
       //create new user
       const newUser = await this.user.create({
         data: {
-          identityNumber,
+          username,
           firstName,
           lastName,
           email,
