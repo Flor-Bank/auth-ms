@@ -20,6 +20,9 @@ export class AuthService extends PrismaClient implements OnModuleInit {
   async signJwt(payload: JwtPayload) {
     return this.jwtService.sign(payload);
   }
+
+  // register user
+  // @PUBLIC
   async registerUser(registerUserDto: RegisterUserDto) {
     const { username, firstName, lastName, email, password } = registerUserDto;
     try {
@@ -58,13 +61,24 @@ export class AuthService extends PrismaClient implements OnModuleInit {
     }
   }
 
+  // login user
+  // @PUBLIC
   async loginUser(loginUserDto: LoginUserDto) {
-    const { email, password } = loginUserDto;
+    const { username, password } = loginUserDto;
     try {
       //verify if user is already registered
       const user = await this.user.findUnique({
         where: {
-          email,
+          username,
+        },
+        select: {
+          id: true,
+          username: true,
+          firstName: true,
+          lastName: true,
+          email: true,
+          password: true,
+          isActive: true,
         },
       });
       if (!user) {
@@ -104,6 +118,18 @@ export class AuthService extends PrismaClient implements OnModuleInit {
           secret: envs.jwtSecret,
         },
       );
+      if (!userData) {
+        throw new RpcException({
+          code: 400,
+          message: `Invalid token`,
+        });
+      }
+      if (!userData.isActive) {
+        throw new RpcException({
+          code: 400,
+          message: `User is not active`,
+        });
+      }
       return {
         sessionUser: userData,
         token: await this.signJwt(userData),
