@@ -44,7 +44,7 @@ export class AuthService extends PrismaClient implements OnModuleInit {
           username,
           firstName,
           lastName,
-          email,
+          email: email.toLowerCase().trim(),
           password: bcrypt.hashSync(password, 10),
         },
       });
@@ -121,7 +121,7 @@ export class AuthService extends PrismaClient implements OnModuleInit {
       if (!userData) {
         throw new RpcException({
           code: 400,
-          message: `Invalid token`,
+          message: `Invalid user`,
         });
       }
       if (!userData.isActive) {
