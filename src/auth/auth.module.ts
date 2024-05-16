@@ -2,7 +2,9 @@ import { Module } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { AuthController } from './auth.controller';
 import { JwtModule } from '@nestjs/jwt';
-import { envs } from 'src/config/envs';
+
+import { NatsModule } from 'src/transports/nats.module';
+import { envs } from 'src/config';
 
 @Module({
   controllers: [AuthController],
@@ -15,6 +17,7 @@ import { envs } from 'src/config/envs';
         expiresIn: envs.jwtExpiresIn,
       },
     }),
+    NatsModule,
   ],
 })
 export class AuthModule {}
