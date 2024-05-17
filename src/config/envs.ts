@@ -19,6 +19,7 @@ const envSchema = joi
 
 const { error, value } = envSchema.validate({
   ...process.env,
+  JWT_SECRET: process.env.JWT_SECRET,
   NATS_SERVERS: process.env.NATS_SERVERS?.split(','),
 });
 
