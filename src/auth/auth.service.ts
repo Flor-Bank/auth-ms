@@ -6,14 +6,11 @@ import { LoginUserDto, RegisterUserDto } from './dto';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { JwtPayload } from './jwt.payload.interface';
-import { NATS_CLIENT, envs } from 'src/config';
+import { envs } from 'src/config';
 
 @Injectable()
 export class AuthService extends PrismaClient implements OnModuleInit {
-  constructor(
-    @Inject(NATS_CLIENT) private readonly client: ClientProxy,
-    private readonly jwtService: JwtService,
-  ) {
+  constructor(private readonly jwtService: JwtService) {
     super();
   }
   async onModuleInit() {
