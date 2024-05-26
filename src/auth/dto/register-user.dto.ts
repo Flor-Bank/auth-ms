@@ -1,11 +1,14 @@
 import {
   IsBoolean,
   IsEmail,
+  IsEnum,
   IsString,
   Matches,
   MaxLength,
   MinLength,
 } from 'class-validator';
+import { ValidRoles, ValidRolesList } from '../enum/auth.enum';
+import { validRoles } from '@prisma/client';
 
 export class RegisterUserDto {
   @IsString()
@@ -29,4 +32,8 @@ export class RegisterUserDto {
   password: string;
   @IsBoolean()
   isActive: boolean = true;
+  @IsEnum(ValidRoles, {
+    message: `Allowed status values: ${ValidRolesList}`,
+  })
+  role: validRoles;
 }
