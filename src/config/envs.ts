@@ -20,9 +20,9 @@ const envSchema = joi
 const { error, value } = envSchema.validate({
   ...process.env,
   JWT_SECRET: process.env.JWT_SECRET,
+  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN,
   NATS_SERVERS: process.env.NATS_SERVERS?.split(','),
 });
-
 if (error) {
   throw new Error(`Config validation error: ${error.message}`);
 }
